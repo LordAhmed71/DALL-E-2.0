@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 
 import { Card, FormField, Loader } from "../Components";
+import toast from "react-hot-toast";
 const Home = () => {
   const [loading, setLoading] = useState(false);
   const [allPosts, setAllPosts] = useState(null);
@@ -27,7 +28,7 @@ const Home = () => {
         setAllPosts(result.data.reverse());
       }
     } catch (err) {
-      alert(err);
+      toast.error(err);
     } finally {
       setLoading(false);
     }

@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { preview } from "../assets";
 import { getRandomPrompt } from "../Utils";
 import { FormField, Loader } from "../Components";
+import toast from "react-hot-toast";
 
 const CreatePost = () => {
   const navigate = useNavigate();
@@ -26,6 +27,12 @@ const CreatePost = () => {
   };
 
   const generateImage = async () => {
+    if (!form.name) {
+      toast("Please Enter Your Name", {
+        icon: "🧐",
+      });
+      return;
+    }
     if (form.prompt) {
       try {
         setGeneratingImg(true);
@@ -44,13 +51,15 @@ const CreatePost = () => {
 
         const data = await response.json();
         setForm({ ...form, photo: `data:image/jpeg;base64,${data.photo}` });
+        toast.success("Image Generated Successfully");
       } catch (err) {
-        alert(err);
+        toast.error(err || err.message);
       } finally {
         setGeneratingImg(false);
       }
     } else {
-      alert("Please provide proper prompt");
+      toast.error("Please provide proper prompt");
+      return;
     }
   };
 
@@ -72,15 +81,15 @@ const CreatePost = () => {
         );
 
         await response.json();
-        alert("Success");
+        toast.success("Image Shared Successfully");
         navigate("/");
       } catch (err) {
-        alert(err);
+        toast.error(err);
       } finally {
         setLoading(false);
       }
     } else {
-      alert("Please generate an image with proper details");
+      toast.error("Please generate an image with proper details");
     }
   };
 
@@ -103,6 +112,7 @@ const CreatePost = () => {
             placeholder="Ex., john doe"
             value={form.name}
             handleChange={handleChange}
+            disabled={generateImage || loading}
           />
 
           <FormField
@@ -114,6 +124,8 @@ const CreatePost = () => {
             handleChange={handleChange}
             isSurpriseMe
             handleSurpriseMe={handleSurpriseMe}
+            generateImage={generateImage}
+            loading={loading}
           />
 
           <div className="relative bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-64 p-3 h-64 flex justify-center items-center">
@@ -156,7 +168,7 @@ const CreatePost = () => {
           </p>
           <button
             type="submit"
-            disabled={loading}
+            disabled={generateImage || loading}
             className="mt-3 text-white bg-[#6469ff] font-medium rounded-md text-sm w-full sm:w-auto px-5 py-2.5 text-center"
           >
             {loading ? "Sharing..." : "Share with the Community"}
