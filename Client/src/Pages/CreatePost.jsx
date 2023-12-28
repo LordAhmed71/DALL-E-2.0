@@ -128,12 +128,12 @@ const CreatePost = () => {
             loading={loading}
           />
 
-          <div className="relative bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-64 p-3 h-64 flex justify-center items-center">
+          <div className="relative bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-64 sm:w-96 p-3 h-64 sm:h-96 flex justify-center items-center">
             {form.photo ? (
               <img
                 src={form.photo}
                 alt={form.prompt}
-                className="w-full h-full object-contain"
+                className="w-full h-full object-contain rounded-md"
               />
             ) : (
               <img
@@ -155,6 +155,7 @@ const CreatePost = () => {
           <button
             type="button"
             onClick={generateImage}
+            disabled={generatingImg || loading}
             className=" text-white bg-green-700 font-medium rounded-md text-sm w-full sm:w-auto px-5 py-2.5 text-center"
           >
             {generatingImg ? "Generating..." : "Generate"}
