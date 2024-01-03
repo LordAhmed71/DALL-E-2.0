@@ -5,8 +5,12 @@ import { preview } from "../assets";
 import { getRandomPrompt } from "../Utils";
 import { FormField, Loader } from "../Components";
 import toast from "react-hot-toast";
+import { useGenerateImage } from "../Hooks/useGenerateImage";
+import { useShareImage } from "../Hooks/useShareImage";
 
 const CreatePost = () => {
+  const { generate, isGenerating } = useGenerateImage();
+  const { share, isSharing } = useShareImage();
   const navigate = useNavigate();
 
   const [form, setForm] = useState({
@@ -14,9 +18,6 @@ const CreatePost = () => {
     prompt: "",
     photo: "",
   });
-
-  const [generatingImg, setGeneratingImg] = useState(false);
-  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) =>
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -26,70 +27,37 @@ const CreatePost = () => {
     setForm({ ...form, prompt: randomPrompt });
   };
 
-  const generateImage = async () => {
+  const generateImage = () => {
     if (!form.name) {
-      toast("Please Enter Your Name", {
+      toast("Please enter your name", {
         icon: "🧐",
       });
       return;
     }
-    if (form.prompt) {
-      try {
-        setGeneratingImg(true);
-        const response = await fetch(
-          "https://dall-e-v7at.onrender.com/api/v1/dalle",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              prompt: form.prompt,
-            }),
-          }
-        );
-
-        const data = await response.json();
-        setForm({ ...form, photo: `data:image/jpeg;base64,${data.photo}` });
-        toast.success("Image Generated Successfully");
-      } catch (err) {
-        toast.error(err || err.message);
-      } finally {
-        setGeneratingImg(false);
-      }
-    } else {
-      toast.error("Please provide proper prompt");
+    if (!form.prompt) {
+      toast("Please provide proper prompt", {
+        icon: "🧐",
+      });
       return;
     }
+    generate(form.prompt, {
+      onSuccess: (photo) => {
+        setForm({ ...form, photo });
+      },
+    });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
     if (form.prompt && form.photo) {
-      setLoading(true);
-      try {
-        const response = await fetch(
-          "https://dall-e-v7at.onrender.com/api/v1/post",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ ...form }),
-          }
-        );
-
-        await response.json();
-        toast.success("Image Shared Successfully");
-        navigate("/");
-      } catch (err) {
-        toast.error(err);
-      } finally {
-        setLoading(false);
-      }
+      share(form, {
+        onSuccess: () => {
+          navigate("/");
+        },
+      });
     } else {
-      toast.error("Please generate an image with proper details");
+      toast.error("Please generate image first");
     }
   };
 
@@ -112,7 +80,6 @@ const CreatePost = () => {
             placeholder="Ex., john doe"
             value={form.name}
             handleChange={handleChange}
-            disabled={generateImage || loading}
           />
 
           <FormField
@@ -124,8 +91,6 @@ const CreatePost = () => {
             handleChange={handleChange}
             isSurpriseMe
             handleSurpriseMe={handleSurpriseMe}
-            generateImage={generateImage}
-            loading={loading}
           />
 
           <div className="relative bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-64 sm:w-96 p-3 h-64 sm:h-96 flex justify-center items-center">
@@ -143,7 +108,7 @@ const CreatePost = () => {
               />
             )}
 
-            {generatingImg && (
+            {isGenerating && (
               <div className="absolute inset-0 z-0 flex justify-center items-center bg-[rgba(0,0,0,0.5)] rounded-lg">
                 <Loader />
               </div>
@@ -155,10 +120,9 @@ const CreatePost = () => {
           <button
             type="button"
             onClick={generateImage}
-            disabled={generatingImg || loading}
             className=" text-white bg-green-700 font-medium rounded-md text-sm w-full sm:w-auto px-5 py-2.5 text-center"
           >
-            {generatingImg ? "Generating..." : "Generate"}
+            {isGenerating ? "Generating..." : "Generate"}
           </button>
         </div>
 
@@ -169,10 +133,9 @@ const CreatePost = () => {
           </p>
           <button
             type="submit"
-            disabled={generateImage || loading}
             className="mt-3 text-white bg-[#6469ff] font-medium rounded-md text-sm w-full sm:w-auto px-5 py-2.5 text-center"
           >
-            {loading ? "Sharing..." : "Share with the Community"}
+            {isSharing ? "Sharing..." : "Share with the Community"}
           </button>
         </div>
       </form>

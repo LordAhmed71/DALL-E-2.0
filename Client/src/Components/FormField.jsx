@@ -9,7 +9,6 @@ const FormField = ({
   handleChange,
   isSurpriseMe,
   handleSurpriseMe,
-  generateImage,
   loading,
 }) => {
   return (
@@ -38,7 +37,7 @@ const FormField = ({
         placeholder={placeholder}
         value={value}
         onChange={handleChange}
-        disabled={loading || generateImage}
+        disabled={loading}
         required
         className="bg-gray-50 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#4649ff] focus:border-[#4649ff] outline-none block w-full p-3  border"
       />
