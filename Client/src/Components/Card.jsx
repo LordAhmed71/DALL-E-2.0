@@ -1,9 +1,10 @@
+import { LazyLoadImage } from "react-lazy-load-image-component";
 import { downloadImage } from "../Utils";
 import { download } from "../assets";
 const Card = ({ _id, prompt, name, photo }) => {
   return (
     <div className="rounded-xl group relative shadow-card hover:shadow-cardhover card">
-      <img
+      <LazyLoadImage
         className="w-full h-auto object-cover rounded-xl"
         src={photo}
         alt={prompt}
@@ -23,7 +24,7 @@ const Card = ({ _id, prompt, name, photo }) => {
             onClick={() => downloadImage(_id, photo)}
             className="outline-none bg-transparent border-none"
           >
-            <img
+            <LazyLoadImage
               src={download}
               alt="download"
               className="w-6 h-6 object-contain invert"

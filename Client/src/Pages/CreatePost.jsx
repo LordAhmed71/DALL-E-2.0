@@ -7,6 +7,7 @@ import { FormField, Loader } from "../Components";
 import toast from "react-hot-toast";
 import { useGenerateImage } from "../Hooks/useGenerateImage";
 import { useShareImage } from "../Hooks/useShareImage";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 const CreatePost = () => {
   const { generate, isGenerating } = useGenerateImage();
@@ -95,13 +96,13 @@ const CreatePost = () => {
 
           <div className="relative bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-64 sm:w-96 p-3 h-64 sm:h-96 flex justify-center items-center">
             {form.photo ? (
-              <img
+              <LazyLoadImage
                 src={form.photo}
                 alt={form.prompt}
                 className="w-full h-full object-contain rounded-md"
               />
             ) : (
-              <img
+              <LazyLoadImage
                 src={preview}
                 alt="preview"
                 className="w-9/12 h-9/12 object-contain opacity-40"
