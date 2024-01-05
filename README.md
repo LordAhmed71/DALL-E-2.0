@@ -36,17 +36,17 @@ To set up the project locally, follow these steps:
 - Clone the repository: git clone https://github.com/LordAhmed71/DALL-E-2.0.git
 - Navigate to the project directory: cd DALL-E-2.0
 - Install dependencies:
-   . For frontend: cd client && npm install
-   . For backend: cd server && npm install
+   - For frontend: cd client && npm install
+   - For backend: cd server && npm install
 
 - Set up environment variables:
-  . Create .env files in both the frontend and backend directories and add necessary configurations (API keys, MongoDB connection strings, etc.).
+  - Create .env files in both the frontend and backend directories and add necessary configurations (API keys, MongoDB connection strings, etc.).
 - Run the application:
-  . Frontend: cd frontend && npm start
-  . Backend: cd backend && npm start
+  - Frontend: cd frontend && npm start
+  - Backend: cd backend && npm start
 
 ## Usage
-1- Access the application through the provided URL or localhost port.
+1- Access the application through the provided URL or localhost port. <br/>
 2- Navigate between the home page and image generation page using the navigation menu.
 3- Generate images by inputting prompts or using the "Surprise Me" feature for random prompts.
 4- Explore the home page gallery, hover over images to view associated prompts and creator details.
