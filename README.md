@@ -47,10 +47,10 @@ To set up the project locally, follow these steps:
 
 ## Usage
 1- Access the application through the provided URL or localhost port. <br/>
-2- Navigate between the home page and image generation page using the navigation menu.
-3- Generate images by inputting prompts or using the "Surprise Me" feature for random prompts.
-4- Explore the home page gallery, hover over images to view associated prompts and creator details.
-5- Share your favorite images with the community using the "Share with Community" button.
+2- Navigate between the home page and image generation page using the navigation menu. <br/>
+3- Generate images by inputting prompts or using the "Surprise Me" feature for random prompts. <br/>
+4- Explore the home page gallery, hover over images to view associated prompts and creator details. <br/>
+5- Share your favorite images with the community using the "Share with Community" button. <br/>
 
 ## Contributing
 ### Contributions to this project are welcome! To contribute:
