@@ -4,10 +4,10 @@
 DALL·E 2.0 is an innovative web application that harnesses the power of OpenAI's technology to generate unique images based on user-provided prompts. This project integrates React.js for the frontend, Node.js with Express.js for the backend, MongoDB for database management, and OpenAI's API for image creation.
 
 ## Features
-### -Image Generation
+### - Image Generation
 Users can input prompts and receive AI-generated images based on those prompts. This enables the creation of diverse and imaginative visual content.
 
-### -Hover Details
+### - Hover Details
 On the home page, hovering over each generated image reveals the original prompt used for its creation and details about the creator.
 
 #### Two Distinct Pages
@@ -24,11 +24,13 @@ Allows users to input prompts, create their images, and provides a "Surprise Me"
 - React Query: For efficient data fetching and management.
 - React Lazy Loading: Optimizing image loading for better performance.
 - SASS: Used for styling and maintaining scalable stylesheets.
-- React-hot-toast : For Notifications and alerts 
+- React-hot-toast: For Notifications and alerts
+- FileSaver: Enables users to download images directly from the browser.
 ### Backend
 - Node.js with Express.js: Creating the server and managing backend functionalities.
 - MongoDB: Storing generated images, associated metadata, and user information.
 - OpenAI API: Utilized for generating images based on user prompts.
+- Cloudinary: Used for image storage, ensuring scalability, and managing image assets efficiently.
 
 ## Installation
 To set up the project locally, follow these steps:
@@ -40,7 +42,7 @@ To set up the project locally, follow these steps:
    - For backend: cd server && npm install
 
 - Set up environment variables:
-  - Create .env files in both the frontend and backend directories and add necessary configurations (API keys, MongoDB connection strings, etc.).
+  - Create .env files in both the frontend and backend directories and add necessary configurations (API keys, MongoDB connection strings, Cloudinary details, etc.).
 - Run the application:
   - Frontend: cd frontend && npm start
   - Backend: cd backend && npm start
@@ -51,6 +53,7 @@ To set up the project locally, follow these steps:
 3- Generate images by inputting prompts or using the "Surprise Me" feature for random prompts. <br/>
 4- Explore the home page gallery, hover over images to view associated prompts and creator details. <br/>
 5- Share your favorite images with the community using the "Share with Community" button. <br/>
+6- Download images directly from the browser using the FileSaver functionality. <br/>
 
 ## Contributing
 ### Contributions to this project are welcome! To contribute:
