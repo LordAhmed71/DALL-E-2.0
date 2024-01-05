@@ -1,4 +1,4 @@
-# DALL·E 2.0 
+# DALL-E 2.0 
 
 ## Overview
 DALL·E 2.0 is an innovative web application that harnesses the power of OpenAI's technology to generate unique images based on user-provided prompts. This project integrates React.js for the frontend, Node.js with Express.js for the backend, MongoDB for database management, and OpenAI's API for image creation.
